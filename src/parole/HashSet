@@ -1,0 +1,20 @@
+public static void prova() {
+        Set set = new HashSet();
+        set.add("abc");
+        set.add("def");
+        set.add("ghl");
+        set.add("nmo");
+        set.add("abc");
+        
+        System.out.println("--->" + set.size());// size: 4
+        List list = new ArrayList();
+        list.add("abc");
+        list.add("aaa");
+        list.add("bbb");
+        set.addAll(list);
+        System.out.println("--->" + set.size());// size: 6
+
+        for (Iterator it = set.iterator(); it.hasNext();) {
+            System.out.println("Value: "+it.next());
+        }
+    }
