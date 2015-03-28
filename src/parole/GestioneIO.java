@@ -14,9 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 /**
  *
@@ -27,8 +25,13 @@ public class GestioneIO {
     int numeroParole, numeroParoleDiverse = 0;
     String[] parole = null;
     ArrayList al = new ArrayList();
-    Map map = new HashMap();
-    Set set = new HashSet();
+    HashMap<String, Integer> map;
+    HashSet set;
+
+    public GestioneIO() {
+        map = new HashMap<>();
+        set = new HashSet();
+    }
 
     public int getInt() {
         Scanner lettore = new Scanner(System.in);
@@ -37,7 +40,7 @@ public class GestioneIO {
         System.out.println("2)HashMap");
         System.out.println("3)ArrayList");
         System.out.println("4)Exit");
-        System.out.println("Inserisci un numero...");
+        System.out.print("Inserisci un numero...");
         return lettore.nextInt();
     }
 
@@ -82,16 +85,19 @@ public class GestioneIO {
             BufferedReader br = new BufferedReader(isr);
             while (br.ready()) {
                 String str = br.readLine();
-                System.out.println(str);
+//                System.out.println(str);
                 parole = str.split(" |,|\\.|;|:|'|-|!|\\?");
                 for (int i = 0; i < parole.length; i++) {
-                    if (map.containsValue(parole[i])) {
+                    if (map.containsKey(parole[i])) {
                         numeroParoleDiverse++;
+                        map.replace(parole[i],map.get(parole[i]), map.get(parole[i])+1);
+                    } else if (map.isEmpty() || !map.containsKey(parole[i])) {
+                        map.put(parole[i], 1);
                     }
-                    map.put(parole[i], parole[i]);
                     numeroParole++;
                 }
             }
+            System.out.println(map);
             System.out.println("Numero di parole: " + numeroParole);
         } catch (FileNotFoundException ex) {
             System.out.println(ex.getMessage());
@@ -99,7 +105,6 @@ public class GestioneIO {
             System.out.println(ex.getMessage());
         }
         return numeroParoleDiverse;
-
     }
 
     public int readFromFileArrayList() {

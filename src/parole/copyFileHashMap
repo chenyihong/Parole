@@ -1,0 +1,26 @@
+public int readFromFileHashMap() {
+        try {
+            FileInputStream fis = new FileInputStream("dati/romanzo.txt");//prova.txt---romanzo.txt---romanzi.txt
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+            while (br.ready()) {
+                String str = br.readLine();
+                System.out.println(str);
+                parole = str.split(" |,|\\.|;|:|'|-|!|\\?");
+                for (int i = 0; i < parole.length; i++) {
+                    if (map.containsValue(parole[i])) {
+                        numeroParoleDiverse++;
+                    }
+                    map.put(parole[i], parole[i]);
+                    numeroParole++;
+                }
+            }
+            System.out.println("Numero di parole: " + numeroParole);
+        } catch (FileNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return numeroParoleDiverse;
+
+    }
